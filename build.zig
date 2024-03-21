@@ -5,7 +5,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
     const ecs_module = b.addModule("zig-ecs", .{
-        .root_source_file = .{.path = "src/ecs.zig"},
+        .root_source_file = .{ .path = "src/ecs.zig" },
         .optimize = optimize,
         .target = target,
     });
@@ -22,7 +22,7 @@ pub fn build(b: *std.Build) void {
 
         const exe = b.addExecutable(.{
             .name = name,
-            .root_source_file = .{.path = source},
+            .root_source_file = .{ .path = source },
             .optimize = optimize,
             .target = target,
         });
@@ -49,7 +49,7 @@ pub fn build(b: *std.Build) void {
 
     // internal tests
     const internal_test = b.addTest(.{
-        .root_source_file = .{.path = "src/tests.zig"},
+        .root_source_file = .{ .path = "src/tests.zig" },
         .optimize = optimize,
         .target = target,
         .name = "internal_tests",
@@ -58,7 +58,7 @@ pub fn build(b: *std.Build) void {
 
     // public api tests
     const public_test = b.addTest(.{
-        .root_source_file = .{.path = "tests/tests.zig"},
+        .root_source_file = .{ .path = "tests/tests.zig" },
         .optimize = optimize,
         .target = target,
         .name = "public_tests",
@@ -80,7 +80,7 @@ pub const LibType = enum(i32) {
 
 pub fn getModule(b: *std.Build, comptime prefix_path: []const u8) *std.Build.Module {
     return b.addModule(.{
-        .root_source_file = .{.path = prefix_path ++ "src/ecs.zig"},
+        .root_source_file = .{ .path = prefix_path ++ "src/ecs.zig" },
         .target = b.standardTargetOptions(.{}),
         .optimize = b.standardOptimizeOption(.{}),
         .name = "ecs",
@@ -93,13 +93,13 @@ pub fn linkArtifact(b: *std.Build, artifact: *std.Build.Step.Compile, lib_type: 
     const target = b.standardTargetOptions(.{});
     switch (lib_type) {
         .static => {
-            const lib = b.addStaticLibrary(.{ .name = "ecs", .root_source_file = "ecs.zig", .optimize = optimize, .target = target});
+            const lib = b.addStaticLibrary(.{ .name = "ecs", .root_source_file = "ecs.zig", .optimize = optimize, .target = target });
             b.installArtifact(lib);
 
             artifact.linkLibrary(lib);
         },
         .dynamic => {
-            const lib = b.addSharedLibrary(.{ .name = "ecs", .root_source_file = "ecs.zig", .optimize = optimize, .target = target});
+            const lib = b.addSharedLibrary(.{ .name = "ecs", .root_source_file = "ecs.zig", .optimize = optimize, .target = target });
             b.installArtifact(lib);
 
             artifact.linkLibrary(lib);
