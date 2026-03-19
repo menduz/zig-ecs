@@ -81,7 +81,7 @@ pub fn ComponentStorage(comptime Component: type, comptime Entity: type) type {
             };
 
             if (!is_empty_struct) {
-                store.instances = std.ArrayListUnmanaged(ComponentOrDummy){};
+                store.instances = .empty;
             }
 
             return store;

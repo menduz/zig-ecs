@@ -190,7 +190,7 @@ pub const Registry = struct {
             .handles = EntityHandles.init(allocator),
             .components = .empty,
             .contexts = .empty,
-            .groups = std.ArrayListUnmanaged(*GroupData){},
+            .groups = .empty,
             .type_store = TypeStore.init(allocator),
             .allocator = allocator,
         };
